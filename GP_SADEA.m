@@ -12,7 +12,7 @@ function SADEA_Optimizer()
     pop_size = 100;         % Population size for DE
     mutation_factor = 0.8; % Mutation rate
     crossover_rate = 0.9;  % Crossover rate
-    num_offspring = floor(pop_size / 3); % Ensures valid parent selection
+    num_offspring = 30; 
    
     input_dim = 56;
     bounds = get_design_space_bounds();
@@ -25,8 +25,8 @@ function SADEA_Optimizer()
     end
 
     %% Load Initial Dataset
-    X_train = readmatrix('pcb_ini_200.txt');  % Initial design samples (200, 56)
-    y_ini = readmatrix('y_ini_200.txt');      % Initial objective values (200, 200)
+    X_train = readmatrix('pcb_ini_300.txt');  
+    y_ini = readmatrix('y_ini_300.txt');      
 
     % Compute objective values from S11 and Gain
     y_train = zeros(size(y_ini, 1), 1);
@@ -44,7 +44,7 @@ function SADEA_Optimizer()
     fprintf('Initial Best Objective = %.4f\n', current_best);
 
     % Train Gaussian Process (GP) model using the initial dataset
-    gp_model = fitrgp(X_train, y_train, 'KernelFunction', 'ardsquaredexponential');
+    gp_model = fitrgp(X_train, y_train, 'KernelFunction', 'squaredexponential');
 
     % Initialize population for Differential Evolution (DE)
     pop = lhsdesign(pop_size, input_dim) .* (ub - lb) + lb;
@@ -142,7 +142,7 @@ function fitness = objective_function(S11_data, Gain_data)
     G_penalty = mean(max(target_gain - Gain_data, 0));
     
     % Weighted sum
-    fitness = 0.6 * S_penalty + 0.5 * G_penalty;
+    fitness = 0.5 * S_penalty + 0.5 * G_penalty;
 end
 
 
@@ -290,7 +290,7 @@ function bounds = get_design_space_bounds()
     grid_y_cells = 4;
     patch_width_range = [2, 4];  % mm
     patch_length_range = [2, 7];  % mm
-    offset_range = [-1, 1];  % mm
+    offset_range = [-2, 2];  % mm
 
     lower_bounds = [];
     upper_bounds = [];
