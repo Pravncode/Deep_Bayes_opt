@@ -10,7 +10,7 @@ half_width = pcb_width / 2;
 half_length = pcb_length / 2;
 num_iterations = 200;    % Number of BO iterations
 q = 30;                 % Number of points to select per iteration
-num_candidates = 5000;  % Number of random candidates to generate
+num_candidates = 10000;  % Number of random candidates to generate
 input_dim = 56;
 bounds = get_design_space_bounds();
 lb = bounds(1, :);
@@ -22,8 +22,8 @@ if isempty(gcp('nocreate'))
 end
 
 %% Load initial dataset
-X_train = readmatrix('pcb_ini_200.txt'); 
-y_ini = readmatrix('y_ini_200.txt'); 
+X_train = readmatrix('pcb_ini_300.txt'); 
+y_ini = readmatrix('y_ini_300.txt'); 
 
 y_train = zeros(size(y_ini, 1), 1);
 for i = 1:size(y_ini, 1)
@@ -49,7 +49,7 @@ best_design_file = fopen('best_designs.txt', 'a');
 
 for iter = 1:num_iterations
     % Train GP model with RBF kernel
-    gp_model = fitrgp(X_train, y_train, 'KernelFunction', 'ardsquaredexponential', 'Standardize', true);
+    gp_model = fitrgp(X_train, y_train, 'KernelFunction', 'squaredexponential', 'Standardize', true);
     
     % Generate random candidates within the Trust Region
     candidates = lhsdesign(num_candidates, input_dim);
@@ -120,7 +120,7 @@ function fitness = objective_function(S11_data, Gain_data)
     G_penalty = mean(max(target_gain - Gain_data, 0));
     
     % Weighted sum
-    fitness = 0.6 * S_penalty + 0.5 * G_penalty;
+    fitness = 0.5 * S_penalty + 0.5 * G_penalty;
 end
 
 %% Expected Improvement Acquisition Function
@@ -275,7 +275,7 @@ function bounds = get_design_space_bounds()
     grid_y_cells = 4;
     patch_width_range = [2, 4];  % mm
     patch_length_range = [2, 7];  % mm
-    offset_range = [-1, 1];  % mm
+    offset_range = [-2, 2];  % mm
 
     lower_bounds = [];
     upper_bounds = [];
