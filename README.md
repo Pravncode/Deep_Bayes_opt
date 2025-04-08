@@ -21,8 +21,9 @@ The framework is validated on a **52-variable tile-based UWB patch antenna**, de
 scalable-deep-bayesian-optimization/
 │
 ├── scalable_deep_Bayesian_Optimization.ipynb    # Main Jupyter notebook implementing the BO framework
-├── GP_SADEA.m                                    # MATLAB script for SADEA baseline (GP-based)
-├── GP_TRPBO.m                                    # MATLAB script for TRPBO baseline (GP-based)
+├── Conv_DE.m                                    # MATLAB script for conventional Differential evolution (using true fitness evaluation)
+├── GP_SADEA.m                                    # MATLAB script for SADEA baseline (GP-based surrogate)
+├── GP_TRPBO.m                                    # MATLAB script for TRPBO baseline (GP-based surrogate)
 ├── README.md                                     # Project documentation
 
 ---
