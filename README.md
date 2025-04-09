@@ -16,6 +16,23 @@ The framework is validated on a **52-variable tile-based UWB patch antenna**, de
 
 ---
 
+## 🔍 Active Learning Strategy
+
+We employ a **three-step active sampling strategy** to construct an informative training dataset for the surrogate model:
+
+1. **Diversity**: Generate a pool of 2000 design samples using **Latin Hypercube Sampling (LHS)** to ensure broad coverage of the design space.
+2. **Representativeness**: Apply **k-means clustering** to select **K = 100** representative samples closest to cluster centroids for initial labeling.
+3. **Informativeness**: Train a DNN with **Monte Carlo (MC) dropout** and iteratively select **L = 200** samples with the highest predictive variance for further labeling.
+
+This approach ensures the surrogate is trained on samples that are diverse, representative, and informative—resulting in improved predictive performance compared to randomly selected datasets of similar size.
+
+### 🖼️ Active Learning Workflow
+
+![Active Learning Workflow](assets/Figure_2_act_learn.png)
+
+
+
+
 ## 📁 Repository Structure
 
 scalable-deep-bayesian-optimization/
