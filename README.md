@@ -29,7 +29,8 @@ This approach ensures the surrogate is trained on samples that are diverse, repr
 ### 🖼️ Active Learning Workflow
 
 ![Active Learning Workflow](results/Figure_2_active_learn.png)
-
+*Figure 1: (a) Active learning strategy combining LHS, k-means clustering, and uncertainty sampling. (b) Prediction accuracy comparison between randomly sampled datasets (300 and 600 samples) and the
+actively selected 300-sample dataset.*
 
 
 
