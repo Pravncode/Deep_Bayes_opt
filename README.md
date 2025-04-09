@@ -28,7 +28,7 @@ This approach ensures the surrogate is trained on samples that are diverse, repr
 
 ### 🖼️ Active Learning Workflow
 
-![Active Learning Workflow](assets/Figure_2_act_learn.png)
+![Active Learning Workflow](results/Figure_2_active_learn.png)
 
 
 
